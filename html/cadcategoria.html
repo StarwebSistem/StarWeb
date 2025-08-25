@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Categorias</title>
+  <link rel="stylesheet" href="../css/cadcategoria.css">
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Cadastro de Categorias</h1>
+    <div class="actions">
+      <button id="btn-voltar">← Voltar</button>
+      <button id="btn-salvar">💾 Salvar</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <input type="text" id="descricao" placeholder="Digite o nome da categoria">
+    </div>
+
+    <div class="form-group">
+      <label>Escolha um ícone:</label>
+		<div class="icon-grid" id="icon-grid">
+		  <!-- 1: taça de vinho -->
+		  <img src="https://img.icons8.com/fluency/96/wine-glass.png" alt="1" class="icon-option">
+		  <!-- 2: caneca de cerveja funciona -->
+		  <img src="https://img.icons8.com/emoji/96/beer-mug.png" alt="2" class="icon-option">
+		  <!-- 3: copo de coquetel funciona -->
+		  <img src="https://img.icons8.com/emoji/96/cocktail-glass.png" alt="3" class="icon-option">
+		  <!-- 4: garrafa com rolha funciona -->
+		  <img src="https://img.icons8.com/emoji/96/bottle-with-popping-cork.png" alt="4" class="icon-option">
+		  <!-- 5: drinque tropical funciona -->
+		  <img src="https://img.icons8.com/emoji/96/tropical-drink.png" alt="5" class="icon-option">
+		  <!-- 6: substituído para sake -->
+		  <img src="https://img.icons8.com/emoji/96/sake.png" alt="6" class="icon-option">
+		  <!-- 7: copo de leite funciona -->
+		  <img src="https://img.icons8.com/emoji/96/glass-of-milk.png" alt="7" class="icon-option">
+		  <!-- 8: chá de copo substituído para chá -->
+		  <img src="https://img.icons8.com/emoji/96/hot-tea.png" alt="8" class="icon-option">
+		</div>
+
+    </div>
+
+    <div class="form-actions">
+      <button id="btn-excluir">🗑️ Excluir</button>
+    </div>
+  </main>
+</div>
+
+<script>
+  // Marcação do ícone selecionado
+  const icons = document.querySelectorAll('.icon-option');
+  let selectedIcon = null;
+
+  icons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      icons.forEach(i => i.classList.remove('selected'));
+      icon.classList.add('selected');
+      selectedIcon = icon.alt; // Pode salvar o índice ou URL do ícone
+    });
+  });
+
+  document.getElementById('btn-voltar').addEventListener('click', () => {
+    window.history.back();
+  });
+
+  document.getElementById('btn-salvar').addEventListener('click', () => {
+    const descricao = document.getElementById('descricao').value;
+    if (!descricao || !selectedIcon) {
+      alert('Preencha a descrição e selecione um ícone.');
+      return;
+    }
+    alert(`Categoria salva:\nDescrição: ${descricao}\nÍcone: ${selectedIcon}`);
+    // Aqui você faria o envio para o servidor
+  });
+
+  document.getElementById('btn-excluir').addEventListener('click', () => {
+    if (confirm('Deseja excluir esta categoria?')) {
+      alert('Categoria excluída');
+      // Aqui você chamaria seu endpoint de exclusão
+    }
+  });
+</script>
+
+</body>
+</html>

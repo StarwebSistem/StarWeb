@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Página Principal</title>
+  <link rel="stylesheet" href="../css/principal.css" />
+</head>
+<body>
+
+<main>
+  <h1>Bem-vindo à Página Principal da Barbearia</h1>
+  <p id="welcome-message">Carregando...</p>
+
+  <div class="icon-links">
+    <a href="./cadevento.html" class="icon-link">
+      <img src="https://img.icons8.com/ios-filled/100/004080/calendar.png" alt="Evento" />
+      <div>Cadastro Evento</div>
+    </a>
+
+    <a href="./cadastrarhorarios.html" class="icon-link">
+      <img src="https://img.icons8.com/ios-filled/100/004080/marker.png" alt="Local" />
+      <div>Cadastro Horários</div>
+    </a>
+
+    <a href="./relatorios.html" class="icon-link">
+      <img src="https://img.icons8.com/ios-filled/100/004080/combo-chart--v1.png" alt="Relatórios" />
+      <div>Relatórios</div>
+    </a>
+
+    <a href="./financeiro.html" class="icon-link">
+      <img src="https://img.icons8.com/ios-filled/100/004080/money.png" alt="Financeiro" />
+      <div>Financeiro</div>
+    </a>
+
+    <a href="./pesquisarhorario.html" class="icon-link">
+      <img src="https://img.icons8.com/ios-filled/100/004080/open-box.png" alt="Catálogo" />
+      <div>Pesquisar Horário</div>
+    </a>
+
+	<a href="./clientes.html" class="icon-link">
+	  <img src="https://img.icons8.com/?size=100&id=EInDLGZwVHf7&format=png&color=000000" alt="Clientes" />
+	  <div>Clientes</div>
+	</a>
+
+    <a href="./configuracoes.html" class="icon-link">
+      <img src="https://img.icons8.com/ios-filled/100/004080/settings.png" alt="Configurações" />
+      <div>Configurações</div>
+    </a>
+
+	<a href="./pesquisacategoria.html" class="icon-link">
+	  <img src="https://img.icons8.com/?size=100&id=120717&format=png&color=000000" alt="Categoria" />
+	  <div>Categoria</div>
+	</a>
+  </div>
+
+  <button id="logout-btn">Sair</button>
+</main>
+
+<footer>
+  <div>Contato: contato@seusite.com | Tel: (00) 1234-5678</div>
+  <div>
+    <a href="./termos.html">Termos de Uso</a> |
+    <a href="./politica.html">Política de Privacidade</a> |
+    <a href="./ajuda.html">Ajuda</a>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	  function parseJwt(token) {
+	    try {
+	      const base64Url = token.split('.')[1];
+	      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+	      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+	        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+	      }).join(''));
+	      return JSON.parse(jsonPayload);
+	    } catch (e) {
+	      console.error('Erro ao decodificar token:', e);
+	      return null;
+	    }
+	  }
+
+	  const logoutBtn = document.getElementById('logout-btn');
+	  logoutBtn.addEventListener('click', () => {
+	    localStorage.removeItem('token');
+	    localStorage.removeItem('usuarioId'); // <-- importante
+	    window.location.href = '/StarWeb/';
+	  });
+
+	  const token = localStorage.getItem('token');
+	  const usuarioId = localStorage.getItem('usuarioId');
+	  const welcomeMessage = document.getElementById('welcome-message');
+
+	  // Redireciona se usuário não estiver logado
+	  if (!token || !usuarioId) {
+	    alert('Usuário não está logado. Por favor, faça login.');
+	    window.location.href = './login.html';
+	    return;
+	  }
+
+	  // Exibe mensagem de boas-vindas
+	  const user = parseJwt(token);
+	  if (user && user.nome) {
+	    welcomeMessage.textContent = `Bem-vindo, ${user.nome}!`;
+	  } else {
+	    welcomeMessage.textContent = 'Bem-vindo!';
+	  }
+	});
+</script>
+
+</body>
+</html>

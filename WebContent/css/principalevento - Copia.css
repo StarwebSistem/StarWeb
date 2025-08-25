@@ -1,0 +1,239 @@
+@charset "UTF-8";
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Fundo com imagem de evento brindando */
+  background: url('https://www.paraisodasfestas.com.br/wp-content/uploads/2018/07/infraestrutura-de-um-evento-1-1024x683.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+header {
+  background-color: #000; /* fundo preto no menu */
+  color: white;
+  padding: 15px 30px;
+  position: relative;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+nav ul li {
+  position: relative;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 0;
+  display: inline-block;
+}
+nav ul li:hover > ul {
+  display: block;
+}
+/* submenu */
+nav ul ul {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background: #111; /* submenu com fundo preto escuro */
+  padding: 10px 0;
+  border-radius: 0 0 5px 5px;
+  display: none;
+  min-width: 160px;
+  z-index: 1000;
+}
+nav ul ul li {
+  padding: 5px 20px;
+}
+nav ul ul li a {
+  font-weight: normal;
+}
+nav ul ul li:hover {
+  background: #222;
+}
+main {
+  flex: 1;
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.4); /* fundo transparente mais forte */
+  border-radius: 8px;
+  text-align: center;
+}
+main h1 {
+  margin-bottom: 10px;
+  color: #000; /* escureci para contraste */
+}
+#welcome-message {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+.icon-links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.icon-link {
+  width: 130px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000; /* texto preto */
+  font-weight: 600;
+  transition: color 0.3s ease;
+  background: rgba(255, 255, 255, 0.4); /* fundo branco bem transparente */
+  border-radius: 8px;
+  padding: 15px 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* sombra leve */
+  backdrop-filter: saturate(180%) blur(5px);
+  -webkit-backdrop-filter: saturate(180%) blur(5px);
+}
+
+/* Deixar as imagens pretas usando filtro CSS */
+.icon-link img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  filter: brightness(0) invert(0); /* deixa preta */
+}
+
+button#logout-btn {
+  background-color: #c0392b;
+  border: none;
+  padding: 10px 25px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+button#logout-btn:hover {
+  background-color: #e74c3c;
+}
+footer {
+  background-color: #000; /* fundo preto */
+  color: #ddd;
+  padding: 20px 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+footer a {
+  color: #4da6ff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Menu sanduíche */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  padding: 15px 30px;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: none; /* inicialmente escondido para menu sanduíche */
+    flex-direction: column;
+    background-color: #000;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+  }
+  nav ul.show {
+    display: flex;
+  }
+  nav ul li {
+    padding: 10px 30px;
+  }
+  nav ul ul {
+    position: static;
+    background: #111;
+    border-radius: 0;
+    padding-left: 20px;
+  }
+  nav ul ul li:hover {
+    background: #222;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  main {
+    margin: 15px;
+    padding: 15px;
+  }
+  .icon-links {
+    gap: 20px;
+    padding: 15px;
+  }
+  .icon-link {
+    width: 100px;
+    padding: 10px 5px;
+  }
+  .icon-link img {
+    width: 60px;
+    height: 60px;
+  }
+  #welcome-message {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  button#logout-btn {
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+  nav ul ul {
+    position: static;
+    border-radius: 0;
+  }
+  main {
+    margin: 10px 5px;
+    padding: 10px;
+  }
+  .icon-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .icon-link {
+    width: 100%;
+  }
+}

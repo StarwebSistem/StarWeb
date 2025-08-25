@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agendamento - Barbearia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .success {
+      color: green;
+      margin-top: 15px;
+    }
+    .error {
+      color: red;
+      margin-top: 15px;
+    }
+    #barbeariaNome {
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #004080;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Agendar Serviço</h1>
+
+  <div id="barbeariaNome">Carregando barbearia...</div>
+
+  <form id="agendamentoForm">
+    <label for="barbearia">Barbearia:</label>
+    <select id="barbearia" name="barbearia" disabled required>
+      <!-- só para manter o valor do token -->
+    </select>
+
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required />
+
+    <label for="horario">Horário disponível:</label>
+    <select id="horario" name="horario" required>
+      <option value="">Selecione um horário</option>
+    </select>
+
+    <label for="servico">Serviço:</label>
+    <input type="text" id="servico" name="servico" placeholder="Ex: Corte de cabelo" required />
+
+    <button type="submit">Agendar</button>
+    
+    <div class="success" id="successMsg"></div>
+    <div class="error" id="errorMsg"></div>
+  </form>
+
+<script>
+  // Decodifica o token JWT
+  function parseJwt(token) {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      console.error('Erro ao decodificar token:', e);
+      return null;
+    }
+  }
+
+  const barbeariaNomeDiv = document.getElementById('barbeariaNome');
+  const barbeariaSelect = document.getElementById('barbearia');
+  const dataInput = document.getElementById('data');
+  const horarioSelect = document.getElementById('horario');
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Usuário não está logado. Faça login.');
+    window.location.href = './login.html';
+  }
+
+  const user = parseJwt(token);
+
+  if (!user || !user.barbearia_id || !user.barbearia_nome) {
+    alert('Dados da barbearia não encontrados no token.');
+    throw new Error('Dados da barbearia não encontrados no token.');
+  }
+
+  // Mostra nome da barbearia e seleciona a barbearia fixa no select desabilitado
+  barbeariaNomeDiv.textContent = `Barbearia: ${user.barbearia_nome}`;
+  const optionBarb = document.createElement('option');
+  optionBarb.value = user.barbearia_id;
+  optionBarb.textContent = user.barbearia_nome;
+  optionBarb.selected = true;
+  barbeariaSelect.appendChild(optionBarb);
+
+  // Define data atual no input date
+  function formatDateToInput(date) {
+    return date.toISOString().split('T')[0];
+  }
+
+  dataInput.value = formatDateToInput(new Date());
+
+  // Função para carregar horários disponíveis via fetch
+  async function carregarHorarios(data) {
+    horarioSelect.innerHTML = '<option value="">Carregando horários...</option>';
+
+    try {
+      const response = await fetch(`/starweb/horarios/disponiveis?data=${data}&barbearia_id=${user.barbearia_id}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao buscar horários disponíveis');
+      }
+
+      const dados = await response.json();
+      const horarios = dados.horarios || [];
+
+      horarioSelect.innerHTML = ''; // limpa opções
+
+      if (horarios.length === 0) {
+        horarioSelect.innerHTML = '<option value="">Nenhum horário disponível</option>';
+        return;
+      }
+
+      // Coloca só os horários que não estão ocupados (ocupado = false)
+      horarios.forEach(h => {
+        if (!h.ocupado) {
+          const opt = document.createElement('option');
+          opt.value = h.horario;
+          opt.textContent = h.horario;
+          horarioSelect.appendChild(opt);
+        }
+      });
+
+      // Se nenhum horário estiver disponível, avisa
+      if (horarioSelect.options.length === 0) {
+        horarioSelect.innerHTML = '<option value="">Nenhum horário disponível</option>';
+      }
+
+    } catch (err) {
+      horarioSelect.innerHTML = `<option value="">Erro ao carregar horários</option>`;
+      console.error(err);
+    }
+  }
+
+  // Carrega os horários para a data inicial (hoje)
+  carregarHorarios(dataInput.value);
+
+  // Atualiza os horários quando a data for alterada
+  dataInput.addEventListener('change', () => {
+    carregarHorarios(dataInput.value);
+  });
+
+  // Envio do formulário
+  const form = document.getElementById('agendamentoForm');
+  const successMsg = document.getElementById('successMsg');
+  const errorMsg = document.getElementById('errorMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    successMsg.textContent = '';
+    errorMsg.textContent = '';
+
+    const barbeariaId = barbeariaSelect.value;
+    const data = dataInput.value;
+    const horario = horarioSelect.value;
+    const servico = form.servico.value.trim();
+
+    if (!barbeariaId || !data || !horario || !servico) {
+      errorMsg.textContent = 'Por favor, preencha todos os campos.';
+      return;
+    }
+
+    const clienteId = localStorage.getItem('usuarioId');
+    if (!clienteId) {
+      errorMsg.textContent = 'Usuário não autenticado. Faça login antes de agendar.';
+      return;
+    }
+
+    // Monta a data_hora no formato ISO juntando data + horário
+    const dataHoraISO = new Date(`${data}T${horario}:00`).toISOString();
+
+    try {
+      const response = await fetch('https://barberplus.giize.com/starweb/agendamentos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          cliente_id: clienteId,
+          barbearia_id: barbeariaId,
+          data_hora: dataHoraISO,
+          servico: servico,
+          status: 'pendente'
+        })
+      });
+
+      const dataResp = await response.json();
+
+      if (!response.ok) {
+        throw new Error(dataResp.erro || 'Erro ao cadastrar agendamento.');
+      }
+
+      successMsg.textContent = 'Agendamento realizado com sucesso!';
+      form.reset();
+      // Reseta para hoje e recarrega horários
+      dataInput.value = formatDateToInput(new Date());
+      carregarHorarios(dataInput.value);
+
+    } catch (error) {
+      errorMsg.textContent = error.message;
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastrar Horários Disponíveis</title>
+  <style>
+    /* seu CSS atual */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+    }
+    main {
+      background: white;
+      max-width: 450px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      padding: 30px 40px 40px;
+      transition: box-shadow 0.3s ease;
+    }
+    main:hover {
+      box-shadow: 0 12px 36px rgba(0,0,0,0.15);
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #004080;
+      margin-bottom: 25px;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #222;
+      margin-top: 18px;
+      user-select: none;
+    }
+    form input[type="time"],
+    form input[type="number"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.8px solid #b0bec5;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline-offset: 2px;
+    }
+    form input[type="time"]:focus,
+    form input[type="number"]:focus {
+      border-color: #0074cc;
+      box-shadow: 0 0 6px #0074ccaa;
+      outline: none;
+    }
+    button[type="submit"] {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px 0;
+      background: #0074cc;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.15rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,116,204,0.3);
+      user-select: none;
+    }
+    button[type="submit"]:hover {
+      background: #005fa3;
+      box-shadow: 0 6px 14px rgba(0,95,163,0.5);
+    }
+    button[type="submit"]:active {
+      background: #004680;
+      box-shadow: 0 2px 6px rgba(0,70,128,0.6);
+    }
+    #resultado {
+      margin-top: 25px;
+      font-weight: 600;
+      color: #004080;
+      text-align: center;
+      word-wrap: break-word;
+      min-height: 2em;
+      user-select: text;
+    }
+    @media (max-width: 480px) {
+      main {
+        padding: 25px 20px 30px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Cadastrar Horários Fixos Disponíveis</h1>
+
+    <form id="form-horarios" autocomplete="off">
+      <!-- Removido o campo data -->
+
+      <label for="horaInicio">Hora Início:</label>
+      <input type="time" id="horaInicio" required />
+
+      <label for="horaFim">Hora Fim:</label>
+      <input type="time" id="horaFim" required />
+
+      <label for="intervalo">Intervalo (minutos):</label>
+      <input type="number" id="intervalo" value="40" min="1" required />
+
+      <label for="barbearia_id">Barbearia ID:</label>
+      <input type="number" id="barbearia_id" value="1" required />
+
+      <button type="submit">Cadastrar Horários</button>
+    </form>
+
+    <div id="resultado"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById('form-horarios');
+    const resultado = document.getElementById('resultado');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const horaInicio = document.getElementById('horaInicio').value;
+      const horaFim = document.getElementById('horaFim').value;
+      const intervalo = document.getElementById('intervalo').value;
+      const barbearia_id = document.getElementById('barbearia_id').value;
+
+      if (!horaInicio || !horaFim || !intervalo || !barbearia_id) {
+        resultado.textContent = 'Por favor, preencha todos os campos.';
+        resultado.style.color = '#cc3300';
+        return;
+      }
+
+      try {
+        resultado.textContent = 'Enviando...';
+        resultado.style.color = '#004080';
+
+        const token = localStorage.getItem('token'); // pega o token do localStorage
+
+        const response = await fetch('/starweb/horarios/cadastrar-horarios', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ horaInicio, horaFim, intervalo, barbearia_id })
+        });
+
+        const json = await response.json();
+
+        if (response.ok) {
+          resultado.style.color = '#006400';
+          resultado.textContent = 'Horários cadastrados com sucesso.';
+
+          if (confirm('Horários cadastrados com sucesso! Deseja ir para a tela de pesquisa de horários?')) {
+            window.location.href = '/pesquisarhorario.html';
+          }
+        } else {
+          resultado.style.color = '#cc3300';
+          resultado.textContent = 'Erro: ' + (json.erro || 'Não foi possível cadastrar horários.');
+        }
+      } catch (err) {
+        resultado.style.color = '#cc3300';
+        resultado.textContent = 'Erro de rede ou servidor.';
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

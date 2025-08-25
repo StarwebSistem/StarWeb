@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Localização</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    crossorigin=""
+  />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+      max-width: 500px;
+      padding: 0 15px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      height: 400px;
+      margin: 15px 0;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        margin: 10px;
+        padding: 0 10px;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+
+      #map {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Cadastro de Local com Mapa</h2>
+
+  <input type="text" id="nome" placeholder="Nome do espaço" required />
+  <input type="tel" id="telefone" placeholder="Telefone" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="url" id="site" placeholder="Site do espaço" required />
+
+  <div id="map"></div>
+
+  <button id="enviar">Cadastrar Localização</button>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script>
+    let latitude = null;
+    let longitude = null;
+    let marker = null;
+
+    const map = L.map('map').setView([-23.55052, -46.633308], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap',
+    }).addTo(map);
+
+    map.on('click', function (e) {
+      latitude = e.latlng.lat;
+      longitude = e.latlng.lng;
+
+      if (marker) {
+        marker.setLatLng(e.latlng);
+      } else {
+        marker = L.marker(e.latlng).addTo(map);
+      }
+    });
+
+    document.getElementById('enviar').addEventListener('click', async () => {
+      const nome = document.getElementById('nome').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const site = document.getElementById('site').value.trim();
+
+      if (!nome || !telefone || !email || !site) {
+        alert('Preencha todos os campos.');
+        return;
+      }
+      if (latitude === null || longitude === null) {
+        alert('Selecione uma localização no mapa.');
+        return;
+      }
+
+      const dados = { nome, telefone, email, site, latitude, longitude };
+
+      let baseURL = '';
+      if (window.location.hostname === 'localhost') {
+        baseURL = 'https://meuevento.giize.com'; // Substitua pelo endereço real da API em dev
+      } else {
+        baseURL = 'https://meuevento.giize.com'; // Produção
+      }
+
+      const token = localStorage.getItem('token');
+
+      try {
+        const response = await fetch(`${baseURL}/starweb/espacoevento`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token && { 'Authorization': `Bearer ${token}` }),
+          },
+          body: JSON.stringify(dados),
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok) {
+          alert('Localização cadastrada com sucesso!');
+
+          // ⬇️ Retorna o ID do novo espaço para a janela que chamou
+          if (window.opener) {
+            window.opener.postMessage({ tipo: 'espacoSelecionado', id: resultado.id }, '*');
+          }
+
+          // Fecha a janela atual
+          window.close();
+        } else {
+          alert('Erro: ' + (resultado.erro || 'Erro desconhecido'));
+        }
+      } catch (error) {
+        alert('Erro ao enviar dados.');
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
