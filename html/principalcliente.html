@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Página Principal</title>
+  <title>Página Principal - Cliente</title>
   <link rel="stylesheet" href="../css/principal.css" />
 </head>
 <body>
 
 <main>
-  <h1>Bem-vindo </h1>
+  <h1>Bem-vindo</h1>
   <p id="welcome-message">Carregando...</p>
 
   <div class="icon-links">
@@ -67,13 +67,20 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const welcomeMessage = document.getElementById('welcome-message');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Função para decodificar JWT
     function parseJwt(token) {
       try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split('')
+            .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+            .join('')
+        );
         return JSON.parse(jsonPayload);
       } catch (e) {
         console.error('Erro ao decodificar token:', e);
@@ -81,32 +88,26 @@
       }
     }
 
-    const logoutBtn = document.getElementById('logout-btn');
-    logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('usuarioId');
-      window.location.href = '/StarWeb/';
-    });
-
+    // Pega token do localStorage
     const token = localStorage.getItem('token');
-    const usuarioId = localStorage.getItem('usuarioId');
-    const welcomeMessage = document.getElementById('welcome-message');
-
-    if (!token || !usuarioId) {
+    if (!token) {
       alert('Usuário não está logado. Por favor, faça login.');
       window.location.href = './login.html';
       return;
     }
 
     const user = parseJwt(token);
-
-    if (user && user.nome && user.barbearia_nome) {
-      welcomeMessage.textContent = `Seja bem-vindo, ${user.nome}, à barbearia virtual ${user.barbearia_nome}!`;
-    } else if (user && user.nome) {
-      welcomeMessage.textContent = `Seja bem-vindo, ${user.nome}!`;
+    if (user && user.email) {
+      welcomeMessage.textContent = `Seja bem-vindo, ${user.email}!`;
     } else {
       welcomeMessage.textContent = 'Seja bem-vindo!';
     }
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = './login.html';
+    });
   });
 </script>
 
