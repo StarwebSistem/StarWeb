@@ -7,25 +7,44 @@
   <meta name="description" content="Starweb utiliza IA para atendimento humanizado, agendamento inteligente e otimização de tempo. Com validação cruzada e backup, garantimos precisão e confiança.">
   <meta name="theme-color" content="#101826" />
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #0b1020; color: #e6ecff; line-height: 1.6; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #0b1020; color: #e6ecff; line-height: 1.6; scroll-behavior: smooth; }
     .container { width: min(1100px, 92%); margin: 0 auto; }
     header.hero { text-align: center; padding: 3rem 0; }
-    .title { font-size: 2.5rem; margin-bottom: 1rem; }
-    .subtitle { max-width: 780px; margin: 0 auto 1.5rem; color: #a8b3cf; font-size: 1.1rem; }
+    .title { font-size: 2.6rem; margin-bottom: 1rem; }
+    .subtitle { max-width: 780px; margin: 0 auto 1.5rem; color: #a8b3cf; font-size: 1.15rem; }
     .cta { display: flex; justify-content: center; gap: 1rem; margin-top: 1.2rem; flex-wrap: wrap; }
-    .btn { padding: .85rem 1.4rem; border-radius: 14px; border: 1px solid #2a3a63; background: #1b2747; color: #fff; font-weight: 600; cursor: pointer; text-decoration: none; transition: .2s; }
-    .btn:hover { background: #223a63; }
+    .btn { padding: .85rem 1.4rem; border-radius: 14px; border: 1px solid #2a3a63; background: #1b2747; color: #fff; font-weight: 600; cursor: pointer; text-decoration: none; transition: .3s; }
+    .btn:hover { background: #2d4377; transform: scale(1.05); }
     .btn.alt { background: #101c30; color: #a8b3cf; }
-    section { padding: 2.5rem 0; }
+    section { padding: 2.8rem 0; }
     .section-title { text-align: center; font-size: 2rem; margin-bottom: .8rem; }
     .section-sub { text-align: center; color: #a8b3cf; margin-bottom: 1.8rem; font-size: 1.1rem; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-    .card { background: #131b34; padding: 1.5rem; border-radius: 12px; }
+    .card { background: #131b34; padding: 1.6rem; border-radius: 12px; transition: .3s ease; }
+    .card:hover { background: #1b2747; transform: translateY(-6px); }
     footer { text-align: center; padding: 2rem 0; color: #a8b3cf; font-size: .95rem; }
-    .links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
-    a { color: #5fa0ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: .3s;
+      z-index: 999;
+    }
+    .whatsapp-btn:hover { background: #1ebe5d; transform: scale(1.1); }
   </style>
+  <!-- Ícone do WhatsApp -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -97,14 +116,12 @@
   <h2 class="section-title">Fale com a Starweb</h2>
   <p class="section-sub">Estamos prontos para te ajudar a dar o próximo passo.</p>
   <p><strong>E-mail:</strong> <a href="mailto:starwebsistem@gmail.com">starwebsistem@gmail.com</a></p>
-  <div class="links">
-    <a href="/politica.html">Política de Privacidade</a>
-    <span>•</span>
-    <a href="/termos.html">Termos de Uso</a>
-    <span>•</span>
-    <a href="#topo">Topo</a>
-  </div>
 </footer>
+
+<!-- Botão WhatsApp -->
+<a class="whatsapp-btn" href="https://wa.me/5599999999999" target="_blank" aria-label="Fale conosco no WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
 
 </body>
 </html>
