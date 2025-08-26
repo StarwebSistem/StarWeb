@@ -101,14 +101,11 @@
       const userId = payload.id || payload.sub;
       localStorage.setItem('usuarioId', userId);
 
-      // Redireciona conforme tipo de usuário
-      const tipo = data.tipo;
-      if (tipo === 'usuario') {
+      // ✅ Redirecionamento baseado no e-mail informado
+      if (email === 'starweb@gmail.com') {
         window.location.href = '/html/principal.html';
-      } else if (tipo === 'cliente') {
-        window.location.href = '/html/principalcliente.html';
       } else {
-        errorMsg.textContent = 'Tipo de usuário desconhecido.';
+        window.location.href = '/html/principalcliente.html';
       }
 
     } catch (error) {
