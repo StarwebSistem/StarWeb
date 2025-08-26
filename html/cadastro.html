@@ -8,13 +8,16 @@
 </head>
 <body>
   <div class="form-container">
-    <h2>Cadastro de Usuário</h2>
-    <form method="POST" class="form-cadastro" id="cadastroForm">
+    <h2>Cadastro de Cliente</h2>
+    <form id="cadastroForm">
       <label for="nome">Nome Completo</label>
       <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
 
       <label for="email">E-mail</label>
       <input type="email" id="email" name="email" placeholder="email@exemplo.com" required />
+
+      <label for="telefone">Telefone</label>
+      <input type="tel" id="telefone" name="telefone" placeholder="+55XXXXXXXXXXX" required />
 
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required />
@@ -22,61 +25,56 @@
       <label for="confirmar-senha">Confirmar Senha</label>
       <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Confirme sua senha" required />
 
-      <label for="barbearia">Telefone</label>
-      <input type="text" id="barbearia" name="barbearia" placeholder="Nome da barbearia" required />
-
       <button type="submit">Cadastrar</button>
+      <p id="mensagem" style="margin-top:10px; color:red;"></p>
     </form>
   </div>
 
-  <!-- Script para envio -->
-  <script>
-    document.getElementById('cadastroForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+<script>
+  const form = document.getElementById('cadastroForm');
+  const msg = document.getElementById('mensagem');
 
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
-      const confirmarSenha = document.getElementById('confirmar-senha').value;
-      const barbearia = document.getElementById('barbearia').value;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.style.color = 'red';
+    msg.textContent = '';
 
-      if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem.");
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const senha = document.getElementById('senha').value;
+    const confirmarSenha = document.getElementById('confirmar-senha').value;
+
+    if (senha !== confirmarSenha) {
+      msg.textContent = 'As senhas não coincidem.';
+      return;
+    }
+
+    const dados = { nome, telefone, email, senha };
+
+    try {
+      const resposta = await fetch('https://starweb.giize.com/api/clientes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+
+      const resultado = await resposta.json();
+
+      if (!resposta.ok) {
+        msg.textContent = resultado.erro || 'Erro ao cadastrar. Tente novamente.';
         return;
       }
 
-      const dados = {
-        nome: nome,
-        email: email,
-        senha: senha, // será criptografada no backend
-        barbearia: barbearia
-      };
+      msg.style.color = 'green';
+      msg.textContent = 'Cadastro realizado com sucesso!';
+      form.reset();
 
-      try {
-        const resposta = await fetch("http://ec2-15-228-16-15.sa-east-1.compute.amazonaws.com:3000/starweb/usuario", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(dados)
-        });
-
-        if (!resposta.ok) {
-          const erro = await resposta.json();
-          alert(`Erro ao cadastrar: ${erro.mensagem || 'Erro desconhecido.'}`);
-          return;
-        }
-
-        const resultado = await resposta.json();
-        alert("Cadastro realizado com sucesso!");
-        console.log(resultado);
-        document.getElementById('cadastroForm').reset();
-
-      } catch (erro) {
-        console.error("Erro de rede ou servidor:", erro);
-        alert("Erro ao se conectar com o servidor.");
-      }
-    });
-  </script>
+    } catch (error) {
+      msg.textContent = 'Erro de conexão com o servidor.';
+      console.error('Erro:', error);
+    }
+  });
+</script>
 </body>
 </html>
