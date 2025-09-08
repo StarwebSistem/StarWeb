@@ -3,150 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perfil da Corretora - Star Web</title>
-  <link rel="icon" href="../img/favicon.png" type="image/png">
-  <link rel="stylesheet" href="../css/style.css?v=4" />
+  <title>Star Web</title>
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="../css/style.css?v=3" />
+  <link rel="stylesheet" href="../css/mobile.css?v=3" media="(max-width: 768px)" />
+
   <style>
-    /* Estilo do perfil */
-    .perfil-container {
+    /* Banner exclusivo da corretora */
+    .banner-corretora {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 40px 20px;
+      color: #fff;
+      margin-bottom: 40px;
     }
 
-    .perfil-foto img {
+    .banner-corretora img {
       width: 180px;
       height: 180px;
       object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
+      border-radius: 50%; /* Para moldura redonda */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      transition: transform 0.5s ease;
+      z-index: 1;
     }
 
-.perfil-descricao h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
-  color: #fff; /* Título branco */
-}
-
-.perfil-descricao p {
-  max-width: 700px;
-  margin: 0 auto 15px auto;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #fff; /* Texto branco */
-}
-
-    /* Botão flutuante WhatsApp */
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: #fff;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 30px;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.2s ease;
-    }
-
-    .whatsapp-float:hover {
+    .banner-corretora img:hover {
       transform: scale(1.1);
-      background-color: #20b954;
     }
 
-    .whatsapp-float img {
-      width: 35px;
-      height: 35px;
+    .banner-corretora .conteudo-corretora {
+      position: relative;
+      margin-top: 20px;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
     }
+
+    .banner-corretora .conteudo-corretora h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .banner-corretora .conteudo-corretora p {
+      font-size: 18px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .banner-corretora:hover .conteudo-corretora h1,
+    .banner-corretora:hover .conteudo-corretora p {
+      transform: scale(1.02);
+    }
+
+  .whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #20b954;
+  }
+
+  .whatsapp-float img {
+    width: 35px;
+    height: 35px;
+  }
+
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header com menu e logo -->
   <header>
     <div class="container">
       <img src="../img/logo.png?v=1" alt="Logo" class="logo" />
 
       <div class="right-group">
-        <nav class="menu">
+        <nav class="menu" role="navigation" aria-label="Menu principal">
           <ul>
-            <li><a href="#">Início</a></li>
+            <li><a href="#">Bem vindo</a></li>
+            <!-- <li><a href="./html/cadastro.html">Cadastro</a></li> -->
             <li><a href="#">Contato</a></li>
           </ul>
-          <button class="menu-close">&times;</button>
+          <button class="menu-close" aria-label="Fechar menu">&times;</button>
         </nav>
 
-        <a href="./html/login.html" class="login-icon">
+      <!--  <a href="./html/login.html" class="login-icon" aria-label="Login">
           <img src="../img/login.png" alt="Login" />
-        </a>
+        </a> -->
 
-        <button class="menu-toggle">&#9776;</button>
+        <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
       </div>
     </div>
   </header>
 
-  <!-- Área principal -->
+  <!-- Banner destaque com troca automática de imagens -->
+  <section class="banner-destaque">
+    <div class="conteudo-banner">
+      <h1>Encontre o imóvel dos seus sonhos</h1>
+      <p>Com Lucimar Pereira, sua corretora de confiança</p>
+    </div>
+    <a href="html/saibamais.html">
+      <button class="btn-saiba-mais">Saiba Mais</button>
+    </a>
+  </section>
+
+  <!-- Banner da corretora -->
+  <section class="banner-corretora">
+    <img src="../imgcliente/Lucimar/LucimarCorretora.jpeg" alt="Foto da Corretora" />
+    <div class="conteudo-corretora">
+      <h1>Lucimar Pereira</h1>
+      <p>Corretora de imóveis com mais de 10 anos de experiência, ajudando pessoas a realizarem o sonho da casa própria.</p>
+    </div>
+  </section>
+
+  <!-- Área principal com 3 imagens clicáveis -->
   <main>
-
-    <!-- Perfil da Corretora -->
-    <section class="perfil-container">
-      <div class="perfil-foto">
-        <img src="../img/corretora.jpg" alt="Foto da Corretora" />
-      </div>
-
-      <div class="perfil-descricao">
-        <h2>Maria Silva</h2>
-        <p>
-          Olá! Sou <strong>Maria Silva</strong>, corretora de imóveis com mais de 
-          <strong>10 anos de experiência</strong> ajudando pessoas a realizarem o sonho da casa própria.  
-          Trabalho com venda, aluguel e consultoria imobiliária, sempre prezando pela 
-          transparência, honestidade e agilidade no processo.
-        </p>
-        <p>
-          Meu objetivo é transformar a busca por um imóvel em uma experiência simples, 
-          clara e satisfatória para você e sua família.
-        </p>
-      </div>
-    </section>    
-
-    <!-- Section focada na corretora -->
     <section class="fotosnovidade">
-      <a href="perfil.html" class="foto-item">
-        <img src="../img/corretora.jpg" alt="Perfil da Corretora" />
-        <h3>Conheça sua Corretora</h3>
+      <a href="./cadastro.html" class="foto-item">
+        <img src="../imgcliente/Lucimar/lucimar.jpg" alt="Cadastro" />
+        <h3>Conheça sua Corretora!</h3>
       </a>
-
-      <a href="imoveis.html" class="foto-item">
-        <img src="../img/imoveis.jpg" alt="Imóveis" />
+      <a href="fotos.html" class="foto-item">
+        <img src="../imgcliente/Lucimar/imoveis.jpg" alt="Galeria de Fotos" />
         <h3>Imóveis Disponíveis</h3>
       </a>
-
-      <a href="contato.html" class="foto-item">
-        <img src="../img/contato.jpg" alt="Contato" />
+      <a href="sobre.html" class="foto-item">
+        <img src="img/life.jpg" alt="Sobre o App" />
         <h3>Fale Conosco</h3>
       </a>
-
-      <a href="dicas.html" class="foto-item">
-        <img src="../img/dicas.jpg" alt="Dicas Imobiliárias" />
-        <h3>Dicas e Novidades</h3>
+      <a href="sobre.html" class="foto-item">
+        <img src="img/corte.jpg" alt="Sobre Evento" />
+        <h3>Dicas e Novidades!</h3>
       </a>
-    </section>    
-
+    </section>
+	<!-- Botão flutuante WhatsApp -->
+   <a href="https://wa.me/5562999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
+   </a>
   </main>
 
-  <!-- Botão flutuante WhatsApp -->
-  <a href="https://wa.me/5562999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
-    <img src="img/whatsapp.png" alt="WhatsApp" />
-  </a>
-
-  <!-- Rodapé -->
+  <!-- Rodapé com links -->
   <footer>
     <p>&copy; 2025. Todos os direitos reservados.</p>
     <p>Desenvolvido por <strong>StarWeb System</strong></p>
@@ -156,7 +174,7 @@
     </p>
   </footer>
 
-  <!-- JS do menu -->
+  <!-- JS para menu mobile -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const toggle = document.querySelector(".menu-toggle");
@@ -172,6 +190,9 @@
       });
     });
   </script>
+
+  <!-- Seu slider.js que troca o background do banner -->
+  <script src="js/slider.js"></script>
 
 </body>
 </html>
