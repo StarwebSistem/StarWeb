@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imóveis Disponíveis - Lucimar Corretora</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/mobile.css" media="(max-width: 768px)" />
+
+  <style>
+    body {
+      background-color: #101826;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    header {
+      background: #0a0f1a;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #f0c040;
+      margin-bottom: 40px;
+    }
+
+    .imoveis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .imovel-card {
+      background: #0a0f1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .imovel-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .imovel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+    }
+
+    .imovel-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .imovel-card .detalhes {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .imovel-card .detalhes h2 {
+      color: #f0c040;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .imovel-card .detalhes p {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .btn-contato {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ff4500;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-contato:hover {
+      background-color: #e03e00;
+    }
+
+    /* Responsividade */
+    @media(max-width: 1024px) {
+      .imoveis-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 768px) {
+      .imoveis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="../index.html">Voltar para Principal</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Imóveis Disponíveis</h1>
+    <div class="imoveis-grid">
+      
+      <!-- Chácara -->
+      <div class="imovel-card">
+        <img src="https://images.unsplash.com/photo-1560184897-6b91f9edb4f7" alt="Chácara">
+        <div class="detalhes">
+          <h2>Chácara Encantadora</h2>
+          <p>Tamanho: 1500m² | Valor: R$ 350.000,00</p>
+          <p>Localizada próxima a Goiânia, perfeita para quem busca tranquilidade e contato com a natureza, sem abrir mão da proximidade da cidade.</p>
+          <a href="https://wa.me/5562999999999" class="btn-contato" target="_blank">Fale com Lucimar</a>
+        </div>
+      </div>
+
+      <!-- Lote -->
+      <div class="imovel-card">
+        <img src="https://images.unsplash.com/photo-1599423300746-b62533397364" alt="Lote">
+        <div class="detalhes">
+          <h2>Lote Moderno</h2>
+          <p>Tamanho: 500m² | Valor: R$ 180.000,00</p>
+          <p>Ótima oportunidade de investimento próximo a Goiânia. Ideal para construir a casa dos seus sonhos em localização estratégica.</p>
+          <a href="https://wa.me/5562999999999" class="btn-contato" target="_blank">Fale com Lucimar</a>
+        </div>
+      </div>
+
+      <!-- Casa -->
+      <div class="imovel-card">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Casa">
+        <div class="detalhes">
+          <h2>Casa Aconchegante</h2>
+          <p>Tamanho: 220m² | Valor: R$ 420.000,00</p>
+          <p>Perfeita para famílias, com excelente distribuição de cômodos e fácil acesso a Goiânia. Segurança e conforto garantidos.</p>
+          <a href="https://wa.me/5562999999999" class="btn-contato" target="_blank">Fale com Lucimar</a>
+        </div>
+      </div>
+
+      <!-- Sobrado -->
+      <div class="imovel-card">
+        <img src="https://images.unsplash.com/photo-1599423300746-b62533397364" alt="Sobrado">
+        <div class="detalhes">
+          <h2>Sobrado Moderno</h2>
+          <p>Tamanho: 180m² | Valor: R$ 500.000,00</p>
+          <p>Sobrado próximo a Goiânia, perfeito para quem busca conforto, segurança e design moderno em cada detalhe.</p>
+          <a href="https://wa.me/5562999999999" class="btn-contato" target="_blank">Fale com Lucimar</a>
+        </div>
+      </div>
+
+      <!-- Residencial -->
+      <div class="imovel-card">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Residencial">
+        <div class="detalhes">
+          <h2>Residencial Elegante</h2>
+          <p>Tamanho: 200m² | Valor: R$ 480.000,00</p>
+          <p>Localizado perto de Goiânia, ideal para famílias que buscam qualidade de vida, conforto e proximidade com serviços essenciais.</p>
+          <a href="https://wa.me/5562999999999" class="btn-contato" target="_blank">Fale com Lucimar</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025. Todos os direitos reservados.</p>
+    <p>Desenvolvido por <strong>StarWeb System</strong></p>
+  </footer>
+</body>
+</html>
