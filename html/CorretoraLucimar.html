@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil da Corretora - Star Web</title>
+  <link rel="icon" href="../img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="../css/style.css?v=4" />
+  <style>
+    /* Estilo do perfil */
+    .perfil-container {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .perfil-foto img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+
+.perfil-descricao h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #fff; /* Título branco */
+}
+
+.perfil-descricao p {
+  max-width: 700px;
+  margin: 0 auto 15px auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff; /* Texto branco */
+}
+
+    /* Botão flutuante WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #20b954;
+    }
+
+    .whatsapp-float img {
+      width: 35px;
+      height: 35px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <img src="../img/logo.png?v=1" alt="Logo" class="logo" />
+
+      <div class="right-group">
+        <nav class="menu">
+          <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+          <button class="menu-close">&times;</button>
+        </nav>
+
+        <a href="./html/login.html" class="login-icon">
+          <img src="../img/login.png" alt="Login" />
+        </a>
+
+        <button class="menu-toggle">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Área principal -->
+  <main>
+
+    <!-- Perfil da Corretora -->
+    <section class="perfil-container">
+      <div class="perfil-foto">
+        <img src="../img/corretora.jpg" alt="Foto da Corretora" />
+      </div>
+
+      <div class="perfil-descricao">
+        <h2>Maria Silva</h2>
+        <p>
+          Olá! Sou <strong>Maria Silva</strong>, corretora de imóveis com mais de 
+          <strong>10 anos de experiência</strong> ajudando pessoas a realizarem o sonho da casa própria.  
+          Trabalho com venda, aluguel e consultoria imobiliária, sempre prezando pela 
+          transparência, honestidade e agilidade no processo.
+        </p>
+        <p>
+          Meu objetivo é transformar a busca por um imóvel em uma experiência simples, 
+          clara e satisfatória para você e sua família.
+        </p>
+      </div>
+    </section>    
+
+    <!-- Section focada na corretora -->
+    <section class="fotosnovidade">
+      <a href="perfil.html" class="foto-item">
+        <img src="../img/corretora.jpg" alt="Perfil da Corretora" />
+        <h3>Conheça sua Corretora</h3>
+      </a>
+
+      <a href="imoveis.html" class="foto-item">
+        <img src="../img/imoveis.jpg" alt="Imóveis" />
+        <h3>Imóveis Disponíveis</h3>
+      </a>
+
+      <a href="contato.html" class="foto-item">
+        <img src="../img/contato.jpg" alt="Contato" />
+        <h3>Fale Conosco</h3>
+      </a>
+
+      <a href="dicas.html" class="foto-item">
+        <img src="../img/dicas.jpg" alt="Dicas Imobiliárias" />
+        <h3>Dicas e Novidades</h3>
+      </a>
+    </section>    
+
+  </main>
+
+  <!-- Botão flutuante WhatsApp -->
+  <a href="https://wa.me/5562999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+    <img src="img/whatsapp.png" alt="WhatsApp" />
+  </a>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025. Todos os direitos reservados.</p>
+    <p>Desenvolvido por <strong>StarWeb System</strong></p>
+    <p>
+      <a href="./politica.html">Política de Privacidade</a> |
+      <a href="./termouso.html">Termo de Uso</a>
+    </p>
+  </footer>
+
+  <!-- JS do menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.querySelector(".menu-toggle");
+      const closeBtn = document.querySelector(".menu-close");
+      const menu = document.querySelector(".menu");
+
+      toggle.addEventListener("click", () => {
+        menu.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        menu.classList.remove("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
