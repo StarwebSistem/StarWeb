@@ -185,4 +185,18 @@
     color: #fff !important;
     text-decoration: underline;
   }
+  @media (max-width: 768px) {
+  body.header-preto header {
+    background-color: #000 !important;
+  }
+
+  body.header-preto header nav a {
+    color: #fff !important;
+  }
+
+  body.header-preto header nav a:hover {
+    color: #4da6ff !important;
+  }
+}
+  
 }
