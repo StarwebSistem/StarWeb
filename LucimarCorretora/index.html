@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Star Web</title>
+  <title>Star Web - Lucimar Corretora</title>
   <link rel="icon" href="img/favicon.png" type="image/png">
-  <link rel="stylesheet" href="../css/style.css?v=3" />
-  <link rel="stylesheet" href="../css/mobile.css?v=3" media="(max-width: 768px)" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/mobile.css?v=3" media="(max-width: 768px)" />
 
   <style>
     /* Banner exclusivo da corretora */
@@ -27,7 +27,7 @@
       width: 180px;
       height: 180px;
       object-fit: cover;
-      border-radius: 50%; /* Para moldura redonda */
+      border-radius: 50%;
       box-shadow: 0 4px 20px rgba(0,0,0,0.6);
       transition: transform 0.5s ease;
       z-index: 1;
@@ -63,33 +63,33 @@
       transform: scale(1.02);
     }
 
-  .whatsapp-float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    border-radius: 50%;
-    text-align: center;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
+    /* Botão flutuante WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
 
-  .whatsapp-float:hover {
-    transform: scale(1.1);
-    background-color: #20b954;
-  }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #20b954;
+    }
 
-  .whatsapp-float img {
-    width: 35px;
-    height: 35px;
-  }
-
+    .whatsapp-float img {
+      width: 35px;
+      height: 35px;
+    }
   </style>
 </head>
 <body>
@@ -97,21 +97,16 @@
   <!-- Header com menu e logo -->
   <header>
     <div class="container">
-      <img src="../img/logo.png?v=1" alt="Logo" class="logo" />
+      <img src="img/logo.png?v=1" alt="Logo" class="logo" />
 
       <div class="right-group">
         <nav class="menu" role="navigation" aria-label="Menu principal">
           <ul>
             <li><a href="#">Bem vindo</a></li>
-            <!-- <li><a href="./html/cadastro.html">Cadastro</a></li> -->
             <li><a href="#">Contato</a></li>
           </ul>
           <button class="menu-close" aria-label="Fechar menu">&times;</button>
         </nav>
-
-      <!--  <a href="./html/login.html" class="login-icon" aria-label="Login">
-          <img src="../img/login.png" alt="Login" />
-        </a> -->
 
         <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
       </div>
@@ -119,7 +114,8 @@
   </header>
 
   <!-- Banner destaque com troca automática de imagens -->
-  <section class="banner-destaque">
+  <section class="banner-destaque" 
+           data-imagens="img/bannerdestaque1.jpg,img/bannerdestaque2.jpg,img/LucimarCorretora.jpeg">
     <div class="conteudo-banner">
       <h1>Encontre o imóvel dos seus sonhos</h1>
       <p>Com Lucimar Pereira, sua corretora de confiança</p>
@@ -131,37 +127,38 @@
 
   <!-- Banner da corretora -->
   <section class="banner-corretora">
-    <img src="../imgcliente/Lucimar/LucimarCorretora.jpeg" alt="Foto da Corretora" />
+    <img src="img/LucimarCorretora.jpeg" alt="Foto da Corretora" />
     <div class="conteudo-corretora">
       <h1>Lucimar Pereira</h1>
       <p>Corretora de imóveis com mais de 10 anos de experiência, ajudando pessoas a realizarem o sonho da casa própria.</p>
     </div>
   </section>
 
-  <!-- Área principal com 3 imagens clicáveis -->
+  <!-- Área principal com imagens clicáveis -->
   <main>
     <section class="fotosnovidade">
       <a href="./cadastro.html" class="foto-item">
-        <img src="../imgcliente/Lucimar/lucimar.jpg" alt="Cadastro" />
+        <img src="img/lucimar.jpg" alt="Cadastro" />
         <h3>Conheça sua Corretora!</h3>
       </a>
       <a href="fotos.html" class="foto-item">
-        <img src="../imgcliente/Lucimar/imoveis.jpg" alt="Galeria de Fotos" />
+        <img src="img/imoveis.jpg" alt="Galeria de Fotos" />
         <h3>Imóveis Disponíveis</h3>
       </a>
       <a href="sobre.html" class="foto-item">
-        <img src="img/life.jpg" alt="Sobre o App" />
-        <h3>Fale Conosco</h3>
+        <img src="img/contecomigo.jpg" alt="Sobre o App" />
+        <h3>Conte Comigo</h3>
       </a>
       <a href="sobre.html" class="foto-item">
-        <img src="img/corte.jpg" alt="Sobre Evento" />
+        <img src="img/dicas.jpg" alt="Dicas e Novidades" />
         <h3>Dicas e Novidades!</h3>
       </a>
     </section>
-	<!-- Botão flutuante WhatsApp -->
-   <a href="https://wa.me/5562999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
-   </a>
+
+    <!-- Botão flutuante WhatsApp -->
+    <a href="https://wa.me/5562999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
+    </a>
   </main>
 
   <!-- Rodapé com links -->
@@ -191,8 +188,8 @@
     });
   </script>
 
-  <!-- Seu slider.js que troca o background do banner -->
-  <script src="js/slider.js"></script>
+  <!-- Slider exclusivo da corretora -->
+  <script src="./js/sliderLucimar.js"></script>
 
 </body>
 </html>
