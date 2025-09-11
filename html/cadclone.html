@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Faça seu Clone • StarWeb</title>
+  <meta name="description" content="Configure seu clone de IA para agir como você, no momento certo, com o tom certo.">
+  <style>
+    :root{
+      --bg:#0f1220; --card:#171a2b; --muted:#a8b0d3; --text:#e9ecff; --acc:#7aa2ff; --ok:#3bd671; --warn:#ffd166; --danger:#ff6b6b; --chip:#232742; --border:#2a3050;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 80% -10%, #1b2144 0%, #0f1220 60%), var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--acc); text-decoration:none}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(15,18,32,.85), rgba(15,18,32,.55));
+      border-bottom:1px solid var(--border);
+    }
+    .wrap{max-width:1150px; margin:0 auto; padding:18px 20px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:36px;height:36px; display:grid; place-items:center; border-radius:12px;
+      background: conic-gradient(from 220deg, #7aa2ff, #8a65ff, #3bd671);
+      box-shadow: 0 0 20px rgba(122,162,255,.35);
+      color:#0f1220; font-weight:800;
+    }
+    .title{font-weight:700; letter-spacing:.2px}
+    .mini{font-size:12px; color:var(--muted)}
+
+    /* HERO com imagens futuristas */
+    .hero{
+      padding:24px 20px 8px;
+    }
+    .hero-grid{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:22px; align-items:center;
+    }
+    @media (max-width:980px){ .hero-grid{grid-template-columns:1fr} }
+    .hero h1{font-size:34px; margin:6px 0 10px}
+    .subtitle{color:var(--muted); margin:0 0 14px; max-width:65ch}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+    .chip{
+      padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); font-size:12px; color:var(--muted)
+    }
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      padding:12px 16px; border-radius:12px; border:1px solid var(--border); background:#12162a; color:var(--text); cursor:pointer;
+      transition:.2s transform ease, .2s box-shadow ease;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:0 8px 18px rgba(122,162,255,.18)}
+    .btn.primary{background:linear-gradient(180deg, #2a3e8f, #1d2d6b); border-color:#2d3b79}
+    .btn.ghost{background:#12162a}
+
+    .hero-collage{
+      display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    }
+    .hero-card{
+      height:170px; border-radius:16px; overflow:hidden; position:relative;
+      border:1px solid var(--border); background:#0e1020; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .hero-card img{
+      width:100%; height:100%; object-fit:cover; filter:saturate(1.1) contrast(1.05) brightness(.95);
+      transform:scale(1.02); transition: transform .5s ease;
+    }
+    .hero-card:hover img{ transform:scale(1.06) }
+    .hero-badge{
+      position:absolute; left:10px; top:10px; font-size:12px; padding:6px 10px; border-radius:999px;
+      background:rgba(18,22,42,.8); border:1px solid var(--border); color:#cfe2ff
+    }
+
+    /* GRID principal */
+    .grid{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; padding:20px;
+    }
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background: linear-gradient(180deg, rgba(35,39,66,.6), rgba(23,26,43,.95));
+      border:1px solid var(--border); border-radius:18px; padding:18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.03);
+    }
+
+    .section-title{font-size:16px; font-weight:700; margin:4px 0 10px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width:720px){ .row{grid-template-columns:1fr} }
+    label{font-size:13px; color:var(--muted)}
+    input, select, textarea{
+      width:100%; padding:10px 12px; margin-top:6px; border-radius:12px;
+      background:#13172a; color:var(--text); border:1px solid var(--border); outline:none;
+    }
+    textarea{min-height:92px; resize:vertical}
+    .toggles{display:flex; gap:10px; flex-wrap:wrap}
+    .toggle{
+      display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:14px;
+      background:#13172a; border:1px solid var(--border); cursor:pointer; user-select:none;
+    }
+    .toggle input{accent-color:var(--acc); width:16px; height:16px}
+    .slider{
+      -webkit-appearance:none; appearance:none; width:100%; height:10px; border-radius:999px;
+      background:#13172a; border:1px solid var(--border); outline:none;
+    }
+    .slider::-webkit-slider-thumb{
+      -webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #cfe2ff);
+      border:3px solid var(--acc); box-shadow: 0 4px 16px rgba(122,162,255,.35);
+      cursor:pointer;
+    }
+    .list{display:flex; flex-direction:column; gap:10px}
+    .item{
+      display:flex; align-items:flex-start; gap:12px; padding:12px; border:1px solid var(--border); border-radius:12px; background:#12162a;
+    }
+    .dot{width:10px; height:10px; border-radius:50%; background:var(--acc); margin-top:6px}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .danger{color:var(--danger)}
+    .ghost{opacity:.65}
+
+    /* Galeria */
+    .gallery-wrap{padding:8px 20px 30px}
+    .gallery{display:flex; gap:14px; flex-wrap:wrap; justify-content:center}
+    .gallery .thumb{
+      width:250px; height:160px; border-radius:14px; overflow:hidden; position:relative; border:1px solid var(--border); background:#0e1020;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .gallery .thumb img{width:100%; height:100%; object-fit:cover; filter:saturate(1.1) contrast(1.05)}
+    .gallery .thumb:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(122,162,255,.18)}
+    .cap{position:absolute; left:8px; bottom:8px; font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(18,22,42,.75); border:1px solid var(--border); color:#cfe2ff}
+
+    footer{padding:26px 20px; border-top:1px solid var(--border); color:var(--muted); text-align:center}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:14px">
+      <div class="brand">
+        <div class="logo">⨷</div>
+        <div>
+          <div class="title">StarWeb Clone</div>
+          <div class="mini">Seu segundo-eu, alinhado à sua rotina</div>
+        </div>
+      </div>
+      <div class="mini">Privado por padrão • Você no controle</div>
+    </div>
+  </header>
+
+  <!-- HERO com imagens futuristas -->
+  <section class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <h1>Faça seu Clone de IA</h1>
+        <p class="subtitle">
+          Conecte preferências, rotina e objetivos. O clone age como você — com seu tom — nos horários que você definir.
+        </p>
+        <div class="chips">
+          <span class="chip">🕒 Rotina por horários</span>
+          <span class="chip">🎯 Objetivos diários</span>
+          <span class="chip">🗣️ Tom de comunicação</span>
+          <span class="chip">🔒 Permissões claras</span>
+        </div>
+        <div class="actions">
+          <a href="#setup" class="btn primary" id="cta-config">Configurar meu clone</a>
+          <a href="#galeria" class="btn ghost">Ver inspirações</a>
+        </div>
+      </div>
+      <div class="hero-collage">
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb" alt="Robô cooperando em tarefa humana" loading="lazy">
+          <div class="hero-badge">Colaboração</div>
+        </div>
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1655721457883-7cbdeb18f0d7" alt="Robô futurista em ambiente de trabalho" loading="lazy">
+          <div class="hero-badge">Produtividade</div>
+        </div>
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1581092580492-1e7e8538e96d" alt="Robô escrevendo/comunicando" loading="lazy">
+          <div class="hero-badge">Comunicação</div>
+        </div>
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb3" alt="Robô planejando agenda" loading="lazy">
+          <div class="hero-badge">Agenda</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID principal (estrutura original) -->
+  <div class="wrap" id="setup">
+    <div class="grid">
+      <!-- Coluna A: Configuração -->
+      <section class="card">
+        <h2 class="section-title">Configuração do Clone</h2>
+
+        <div class="row">
+          <div>
+            <div class="section-title">Perfil & Tom</div>
+            <label for="nome">Como devo me referir a você?</label>
+            <input id="nome" placeholder="Ex.: Alcântara" />
+
+            <label for="tom" style="margin-top:10px">Tom preferido</label>
+            <select id="tom">
+              <option value="profissional">Profissional</option>
+              <option value="amigavel">Amigável</option>
+              <option value="direto">Direto e objetivo</option>
+              <option value="criativo">Criativo</option>
+            </select>
+
+            <label for="frases" style="margin-top:10px">Trechos que soam como você (opcional)</label>
+            <textarea id="frases" placeholder="Cole aqui frases que representam seu jeito de falar."></textarea>
+            <div class="mini">Dica: 2–3 exemplos já ajudam a calibrar o tom.</div>
+          </div>
+
+          <div>
+            <div class="section-title">Objetivos</div>
+            <label for="metaDia">Meta do dia</label>
+            <input id="metaDia" placeholder="Ex.: Confirmar 5 agendamentos"/>
+
+            <label for="metaSemana" style="margin-top:10px">Meta da semana</label>
+            <input id="metaSemana" placeholder="Ex.: Aumentar taxa de retorno em 10%"/>
+
+            <label for="canais" style="margin-top:10px">Canais de atuação</label>
+            <div class="toggles" id="canais">
+              <label class="toggle"><input type="checkbox" value="whatsapp" />WhatsApp</label>
+              <label class="toggle"><input type="checkbox" value="email" />E-mail</label>
+              <label class="toggle"><input type="checkbox" value="agenda" />Agenda</label>
+              <label class="toggle"><input type="checkbox" value="financeiro" />Financeiro</label>
+            </div>
+
+            <label for="autonomia" style="margin-top:10px">Nível de autonomia</label>
+            <input id="autonomia" type="range" min="0" max="100" class="slider" />
+            <div class="mini">0% = só sugere. 100% = executa conforme permissões.</div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <div>
+            <div class="section-title">Janelas por dia</div>
+            <label>Seg a Sex</label>
+            <div class="row">
+              <input id="ini" type="time" value="08:00" />
+              <input id="fim" type="time" value="18:00" />
+            </div>
+            <div class="mini">Fora desse intervalo o clone não age (só acumula sugestões).</div>
+          </div>
+          <div>
+            <div class="section-title">Permissões</div>
+            <div class="list">
+              <label class="toggle"><input id="p-sugerir" type="checkbox" checked />Pode sugerir tarefas</label>
+              <label class="toggle"><input id="p-agendar" type="checkbox" />Pode criar/alterar horários</label>
+              <label class="toggle"><input id="p-mensagens" type="checkbox" />Pode enviar mensagens</label>
+              <label class="toggle"><input id="p-financeiro" type="checkbox" />Pode registrar lançamentos</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions" style="margin-top:16px">
+          <button id="salvar" class="btn primary">Salvar preferências</button>
+          <button id="resetar" class="btn">Restaurar padrão</button>
+          <span id="status" class="mini ghost"></span>
+        </div>
+      </section>
+
+      <!-- Coluna B: Prévia & Hoje -->
+      <aside class="card">
+        <div class="section-title">Prévia do clone</div>
+        <p class="mini">Veja como o clone agiria hoje com suas configurações atuais.</p>
+        <div id="preview" class="list" style="margin-top:10px"></div>
+
+        <div class="section-title" style="margin-top:16px">Hoje</div>
+        <div class="item">
+          <div class="dot"></div>
+          <div>
+            <div id="hojeTitulo">Aguardando preferências…</div>
+            <div id="hojeDetalhe" class="mini"></div>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:16px">Privacidade</div>
+        <div class="item">
+          <div class="dot" style="background:var(--ok)"></div>
+          <div>
+            <div>Você decide o que é compartilhado.</div>
+            <div class="mini">Dados ficam no seu dispositivo por padrão. Integrações externas exigem consentimento explícito.</div>
+          </div>
+        </div>
+
+        <div class="actions" style="margin-top:14px">
+          <button id="simular" class="btn ok">Simular ações de hoje</button>
+          <button id="exportar" class="btn">Exportar configurações</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Galeria de inspiração -->
+  <section class="wrap gallery-wrap" id="galeria">
+    <h3 class="section-title">Inspirações (robôs em atividades humanas)</h3>
+    <div class="gallery">
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb" alt="IA cooperando em equipe" loading="lazy">
+        <div class="cap">Cooperação</div>
+      </div>
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1655721457883-7cbdeb18f0d7" alt="Assistente robô no trabalho" loading="lazy">
+        <div class="cap">Trabalho</div>
+      </div>
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1581092580492-1e7e8538e96d" alt="Robô escrevendo e comunicando" loading="lazy">
+        <div class="cap">Comunicação</div>
+      </div>
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb3" alt="Robô planejando agenda" loading="lazy">
+        <div class="cap">Planejamento</div>
+      </div>
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1642002448372-78c3c84f4898" alt="Clone IA interativo" loading="lazy">
+        <div class="cap">Interação</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Dica: use <span class="mini">Ctrl/⌘ + S</span> para salvar. •
+    <span class="mini">StarWeb Clone — demonstração local</span>
+  </footer>
+
+  <script>
+    // util
+    const $ = (id)=>document.getElementById(id);
+
+    const state = {
+      nome: '', tom: 'profissional', frases: '',
+      metaDia: '', metaSemana: '',
+      canais: [], autonomia: 30,
+      janela: { ini:'08:00', fim:'18:00' },
+      perm: { sugerir:true, agendar:false, mensagens:false, financeiro:false }
+    };
+
+    function load(){
+      const saved = localStorage.getItem('clone_prefs');
+      if(!saved) return;
+      try{ Object.assign(state, JSON.parse(saved)); }catch(e){}
+    }
+    function bind(){
+      $('nome').value = state.nome;
+      $('tom').value = state.tom;
+      $('frases').value = state.frases;
+      $('metaDia').value = state.metaDia;
+      $('metaSemana').value = state.metaSemana;
+      $('autonomia').value = state.autonomia;
+      $('ini').value = state.janela.ini;
+      $('fim').value = state.janela.fim;
+
+      document.querySelectorAll('#canais input[type="checkbox"]').forEach(chk=>{
+        chk.checked = state.canais.includes(chk.value);
+      });
+
+      $('p-sugerir').checked = !!state.perm.sugerir;
+      $('p-agendar').checked = !!state.perm.agendar;
+      $('p-mensagens').checked = !!state.perm.mensagens;
+      $('p-financeiro').checked = !!state.perm.financeiro;
+
+      renderPrevias();
+      renderHoje();
+    }
+    function save(){
+      state.nome = $('nome').value.trim();
+      state.tom = $('tom').value;
+      state.frases = $('frases').value.trim();
+      state.metaDia = $('metaDia').value.trim();
+      state.metaSemana = $('metaSemana').value.trim();
+      state.autonomia = Number($('autonomia').value);
+      state.janela = { ini:$('ini').value, fim:$('fim').value };
+
+      const canais = [];
+      document.querySelectorAll('#canais input[type="checkbox"]').forEach(chk=>{
+        if(chk.checked) canais.push(chk.value);
+      });
+      state.canais = canais;
+
+      state.perm = {
+        sugerir: $('p-sugerir').checked,
+        agendar: $('p-agendar').checked,
+        mensagens: $('p-mensagens').checked,
+        financeiro: $('p-financeiro').checked
+      };
+
+      localStorage.setItem('clone_prefs', JSON.stringify(state));
+      const s = $('status');
+      if(s){ s.textContent = 'Preferências salvas ✓'; setTimeout(()=>s.textContent = '', 1800); }
+      renderPrevias(); renderHoje();
+    }
+    function reset(){
+      localStorage.removeItem('clone_prefs');
+      window.location.reload();
+    }
+    function horaDentroJanela(date, ini, fim){
+      const [ih,im]=ini.split(':').map(Number);
+      const [fh,fm]=fim.split(':').map(Number);
+      const t = date.getHours()*60+date.getMinutes();
+      const a = ih*60+im, b=fh*60+fm;
+      if(a<=b) return t>=a && t<=b;     // mesma faixa
+      return (t>=a && t<=1439) || (t>=0 && t<=b); // janela cruzando 00:00
+    }
+    function renderPrevias(){
+      const box = $('preview'); if(!box) return; box.innerHTML='';
+      const itens = [];
+      if(state.metaDia) itens.push({t:'🎯 Alinhado à meta diária', d: state.metaDia});
+      if(state.perm.sugerir) itens.push({t:'💡 Sugestões inteligentes', d:'Gera lista de 3–5 ações prioritárias com base no horário.'});
+      if(state.perm.agendar) itens.push({t:'📅 Agenda', d:'Propõe (ou cria) horários vazios nas suas janelas.'});
+      if(state.perm.mensagens && state.canais.includes('whatsapp')) itens.push({t:'📨 WhatsApp', d:'Mensagens prontas no seu tom — você confirma antes conforme autonomia.'});
+      if(state.perm.financeiro) itens.push({t:'💰 Financeiro', d:'Registra entradas/saídas simples com tags.'});
+      if(!itens.length) itens.push({t:'ℹ️ Nenhuma ação habilitada', d:'Ative permissões para ver como o clone agiria.'});
+
+      itens.forEach(x=>{
+        const el = document.createElement('div'); el.className='item';
+        el.innerHTML = `<div class="dot"></div><div><div>${x.t}</div><div class="mini">${x.d}</div></div>`;
+        box.appendChild(el);
+      });
+    }
+    function renderHoje(){
+      const now = new Date();
+      const dentro = horaDentroJanela(now, state.janela.ini, state.janela.fim);
+      const j = `${state.janela.ini}–${state.janela.fim}`;
+      const nome = state.nome || 'você';
+      const autonomia = state.autonomia;
+
+      const hT = $('hojeTitulo'); const hD = $('hojeDetalhe');
+      if(!hT||!hD) return;
+
+      hT.textContent = dentro
+        ? `Ativo agora (${j}) — autonomia ${autonomia}%`
+        : `Fora da janela (${j}) — só sugerindo`;
+
+      const bullets = [];
+      if(state.perm.sugerir) bullets.push('• Gerar 3 sugestões rápidas');
+      if(state.perm.agendar && dentro) bullets.push('• Verificar horários livres e propor agendamentos');
+      if(state.perm.mensagens && dentro && state.canais.includes('whatsapp')) bullets.push('• Preparar mensagens no WhatsApp no tom "'+state.tom+'"');
+      if(state.perm.financeiro && dentro) bullets.push('• Anotar lembretes financeiros simples');
+
+      hD.textContent = bullets.length
+        ? `${nome}, hoje o clone deve: ${bullets.join(' | ')}.`
+        : `Sem ações ativas. Habilite permissões ou ajuste a janela.`;
+    }
+    function simular(){
+      save();
+      alert('Simulação executada localmente. Integrações reais exigem conexão e consentimento explícito.');
+    }
+    function exportar(){
+      save();
+      const blob = new Blob([localStorage.getItem('clone_prefs')||'{}'], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'clone_prefs.json';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    // atalhos
+    document.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){ e.preventDefault(); save(); }
+    });
+
+    // eventos
+    document.addEventListener('DOMContentLoaded', ()=>{
+      load(); bind();
+      const cta = document.getElementById('cta-config');
+      if(cta){
+        cta.addEventListener('click', (ev)=>{
+          // rolagem suave para o setup
+          const target = document.getElementById('setup');
+          if(target){
+            ev.preventDefault();
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        });
+      }
+      $('salvar').addEventListener('click', save);
+      $('resetar').addEventListener('click', reset);
+      $('simular').addEventListener('click', simular);
+      $('exportar').addEventListener('click', exportar);
+    });
+  </script>
+</body>
+</html>
