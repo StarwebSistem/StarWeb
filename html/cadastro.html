@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastro</title>
-  <!-- Caminho corrigido para o CSS -->
   <link rel="stylesheet" href="../css/cadastro.css" />
 </head>
 <body>
@@ -13,6 +12,9 @@
     <form method="POST" class="form-cadastro" id="cadastroForm">
       <label for="nome">Nome Completo</label>
       <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+
+      <label for="nome_fantasia">Nome Fantasia</label>
+      <input type="text" id="nome_fantasia" name="nome_fantasia" placeholder="Nome fantasia da empresa" required />
 
       <label for="email">E-mail</label>
       <input type="email" id="email" name="email" placeholder="email@exemplo.com" required />
@@ -36,18 +38,20 @@
       e.preventDefault();
 
       const nome = document.getElementById('nome').value.trim();
+      const nomeFantasia = document.getElementById('nome_fantasia').value.trim();
       const email = document.getElementById('email').value.trim();
       const senha = document.getElementById('senha').value;
       const confirmarSenha = document.getElementById('confirmar-senha').value;
       const telefone = document.getElementById('telefone').value.trim();
 
       if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem.");
+        alert("as senhas não coincidem.");
         return;
       }
 
       const dados = {
         nome: nome,
+        nome_fantasia: nomeFantasia,
         telefone: telefone,
         email: email,
         senha: senha
@@ -65,17 +69,17 @@
         const resultado = await resposta.json();
 
         if (!resposta.ok) {
-          alert(`Erro ao cadastrar: ${resultado.mensagem || 'Erro desconhecido.'}`);
+          alert(`erro ao cadastrar: ${resultado.mensagem || 'erro desconhecido.'}`);
           return;
         }
 
-        alert("Cadastro realizado com sucesso!");
+        alert("cadastro realizado com sucesso!");
         console.log(resultado);
         document.getElementById('cadastroForm').reset();
 
       } catch (erro) {
-        console.error("Erro de rede ou servidor:", erro);
-        alert("Erro ao se conectar com o servidor.");
+        console.error("erro de rede ou servidor:", erro);
+        alert("erro ao se conectar com o servidor.");
       }
     });
   </script>
