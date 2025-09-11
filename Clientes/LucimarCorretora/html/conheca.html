@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conheça sua Corretora - Lucimar</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/mobile.css" media="(max-width: 768px)" />
+
+  <style>
+    body {
+      background-color: #101826;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: rgba(0,0,0,0.85);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      height: 50px;
+    }
+
+    header nav a {
+      color: white;
+      font-size: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #4da6ff;
+    }
+
+  .section-historia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 10%;
+  flex-wrap: wrap;
+}
+
+.section-historia .img-container {
+  width: 350px;       /* largura fixa do quadro */
+  height: 250px;      /* altura fixa do quadro */
+  flex-shrink: 0;     /* não permite encolher */
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-historia .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* mantém a imagem inteira */
+}
+
+.section-historia .texto {
+  flex: 1;
+  max-width: 500px;
+}
+
+.section-historia h2 {
+  margin-bottom: 15px;
+  color: #f0c040;
+}
+
+/* Alternância de lado */
+.section-historia:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .section-historia {
+    flex-direction: column !important;
+    gap: 20px;
+    padding: 40px 5%;
+  }
+
+  .section-historia .img-container {
+    width: 100%;
+    height: auto; /* altura se ajusta ao conteúdo */
+  }
+
+  .section-historia .texto {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+	footer {
+	  background: #0a0f1a;
+	  text-align: center;
+	  padding: 20px;
+	  font-size: 14px;
+	  margin-top: 50px;
+	}
+  </style>
+</head>
+<body class="header-preto">
+<body class="header-preto">
+<header>
+   <!-- <img src="../../img/logo.png" alt="Logo" class="logo"> -->
+  <nav>
+    <a href="../index.html">Voltar para Principal</a>
+  </nav>
+</header>
+  <main>
+  
+    <!-- História parte 1 -->
+    <section class="section-historia">
+	  <div class="img-container">
+      <img src="../img/LucimarCorretora.jpeg" alt="Mulher batalhadora">
+	 </div>
+      <div class="texto">
+        <h2>Uma mulher batalhadora</h2>
+        <p>
+          Sempre fui uma mulher de muita garra. Desde cedo aprendi que nada vem fácil e que precisamos lutar para conquistar nossos sonhos. 
+          Enfrentei desafios, superei momentos difíceis e cada obstáculo me deixou ainda mais forte e determinada. 
+          Essa força me acompanha em tudo o que faço até hoje.
+        </p>
+      </div>
+    </section>
+
+    <!-- História parte 2 -->
+    <section class="section-historia">
+	<div class="img-container">
+      <img src="../img/familia.jpeg" alt="Lucimar com os filhos"> 
+	  </div>
+      <div class="texto">
+        <h2>Minha família é meu maior motivo</h2>
+        <p>
+          Sou mãe de dois filhos maravilhosos, que são a minha inspiração diária. 
+          Tudo o que conquisto é pensando no futuro deles e no exemplo que quero deixar. 
+          Conciliar a maternidade com o trabalho nunca foi fácil, mas sempre encarei com amor e dedicação, 
+          pois acredito que o equilíbrio entre família e profissão é essencial.
+        </p>
+      </div>
+    </section>
+
+    <!-- História parte 3 -->
+    <section class="section-historia">
+	 <div class="img-container">
+      <img src="../img/corretora.jpg" alt="Lucimar atendendo clientes">
+	  </div>
+      <div class="texto">
+        <h2>O trabalho que amo</h2>
+        <p>
+          Ser corretora de imóveis não é apenas uma profissão para mim, é um chamado. 
+          Amo poder ajudar pessoas e famílias a realizarem o grande sonho da casa própria. 
+          Cada cliente que atendo é tratado com carinho, transparência e dedicação, porque acredito que um imóvel não é só uma compra: é um projeto de vida.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025. Todos os direitos reservados.</p>
+    <p>Desenvolvido por <strong>StarWeb System</strong></p>
+  </footer>
+</body>
+</html>
