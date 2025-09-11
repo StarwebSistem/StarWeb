@@ -1,0 +1,135 @@
+/* Reset e Fonte */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background: #0f2027;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #00f5ff;
+}
+
+.hero span {
+  color: #39ff14;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-top: 10px;
+  color: #ddd;
+}
+
+/* Info Sections */
+.info-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.info-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.info-block img {
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.info-block div {
+  flex: 1;
+  padding: 20px;
+}
+
+.info-block h2 {
+  color: #00f5ff;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.info-block p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+/* Inversão */
+.reverse {
+  flex-direction: row-reverse;
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.cta h3 {
+  font-size: 2rem;
+  color: #39ff14;
+  margin-bottom: 10px;
+}
+
+.cta p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+button {
+  padding: 15px 25px;
+  background: #00f5ff;
+  border: none;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #39ff14;
+  color: #000;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .info-block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .info-block img {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}
