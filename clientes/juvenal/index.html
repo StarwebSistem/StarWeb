@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Star Web - Modelo</title>
+  <link rel="icon" href="../img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/mobile.css?v=3" media="(max-width: 768px)" />
+
+  <style>
+    /* Banner exclusivo da corretora */
+    .banner-corretora {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+
+    .banner-corretora img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+
+    .banner-corretora img:hover {
+      transform: scale(1.1);
+    }
+
+    .banner-corretora .conteudo-corretora {
+      position: relative;
+      margin-top: 20px;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .banner-corretora .conteudo-corretora h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .banner-corretora .conteudo-corretora p {
+      font-size: 18px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .banner-corretora:hover .conteudo-corretora h1,
+    .banner-corretora:hover .conteudo-corretora p {
+      transform: scale(1.02);
+    }
+
+    /* Botão flutuante WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #20b954;
+    }
+
+    .whatsapp-float img {
+      width: 35px;
+      height: 35px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header com menu e logo -->
+  <header>
+    <div class="container">
+     <img src="../img/logo.png?v=1" alt="Logo" class="logo" /> 
+
+      <div class="right-group">
+        <nav class="menu" role="navigation" aria-label="Menu principal">
+          <ul>
+            <li><a href="#">Bem vindo</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+          <button class="menu-close" aria-label="Fechar menu">&times;</button>
+        </nav>
+
+        <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner destaque com troca automática de imagens -->
+  <section class="banner-destaque" 
+           data-imagens="img/bannerdestaque1.jpg,img/bannerdestaque2.jpg,img/modelo.jpeg">
+    <div class="conteudo-banner">
+      <h1>Encontre o imóvel dos seus sonhos</h1>
+      <p>Com nosso corretor de confiança</p>
+    </div>
+    <a href="html/saibamais.html">
+      <button class="btn-saiba-mais">Saiba Mais</button>
+    </a>
+  </section>
+
+  <!-- Banner do cliente -->
+  <section class="banner-corretora">
+    <img src="img/modelo.jpeg" alt="Foto do Cliente" />
+    <div class="conteudo-corretora">
+      <h1>Modelo</h1>
+      <p>Corretor(a) de imóveis pronto(a) para ajudar você a realizar o sonho da casa própria.</p>
+    </div>
+  </section>
+
+  <!-- Área principal com imagens clicáveis -->
+  <main>
+    <section class="fotosnovidade">
+      <a href="./html/conheca.html" class="foto-item">
+        <img src="img/modelo.jpg" alt="Cadastro" />
+        <h3>Conheça seu Corretor!</h3>
+      </a>
+      <a href="./html/imoveis.html" class="foto-item">
+        <img src="img/imoveis.jpg" alt="Galeria de Fotos" />
+        <h3>Imóveis Disponíveis</h3>
+      </a>
+      <a href="./html/contecomigo.html" class="foto-item">
+        <img src="img/contecomigo.jpg" alt="Sobre o App" />
+        <h3>Conte Comigo</h3>
+      </a>
+      <a href="sobre.html" class="foto-item">
+        <img src="img/dicas.jpg" alt="Dicas e Novidades" />
+        <h3>Dicas e Novidades!</h3>
+      </a>
+    </section>
+
+    <!-- Botão flutuante WhatsApp -->
+    <a href="https://wa.me/5562999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
+    </a>
+  </main>
+
+  <!-- Rodapé com links -->
+  <footer>
+    <p>&copy; 2025. Todos os direitos reservados.</p>
+    <p>Desenvolvido por <strong>StarWeb System</strong></p>
+    <p>
+      <a href="./politica.html">Política de Privacidade</a> |
+      <a href="./termouso.html">Termo de Uso</a>
+    </p>
+  </footer>
+
+  <!-- JS para menu mobile -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.querySelector(".menu-toggle");
+      const closeBtn = document.querySelector(".menu-close");
+      const menu = document.querySelector(".menu");
+
+      toggle.addEventListener("click", () => {
+        menu.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        menu.classList.remove("active");
+      });
+    });
+  </script>
+
+  <!-- Slider exclusivo do cliente -->
+  <script src="./js/sliderModelo.js"></script>
+
+</body>
+</html>
